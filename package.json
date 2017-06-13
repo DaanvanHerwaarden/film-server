@@ -9,6 +9,7 @@
   "author": "Daan en Mats",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "mysql": "^2.13.0"
   }
 }
