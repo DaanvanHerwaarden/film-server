@@ -1,0 +1,7 @@
+{
+    "port": "3000",
+    "address": "localhost",
+    "user": "todolist_user",
+    "database": "todolist",
+    "secretkey": "een lange complexe tekst die moeilijk te raden is"
+}
