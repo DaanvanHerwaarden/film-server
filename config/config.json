@@ -1,7 +1,8 @@
 {
     "port": "3000",
-    "address": "localhost",
-    "user": "todolist_user",
-    "database": "todolist",
-    "secretkey": "een lange complexe tekst die moeilijk te raden is"
+    "address": "146.185.130.82",
+    "user": "1031",
+	"password": "root",
+    "database": "1031",
+    "secretkey": "koos stekkerdoos"
 }
