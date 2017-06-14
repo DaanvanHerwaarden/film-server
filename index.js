@@ -11,15 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 
-app.use(expressJWT({
-    secret: config.secretkey
-}).unless({
-    path: [
-        { url: '/api/v1/login', methods: ['POST'] },
-        { url: '/api/v1/films/:film_id', methodes: ['GET'] }
-    ]
-}));
-
 //Gebruik de routers
 app.use('/api/v1', routes);
 
@@ -30,6 +21,14 @@ app.use('*', function(req, res) {
         "error": "Deze URL is niet beschikbaar."
     });
 });
+
+app.use(expressJWT({
+    secret: config.secretkey
+}).unless({
+    path: [
+        { url: '/api/v1/login', methods: ['POST'] }
+    ]
+}));
 
 app.listen(3000, function() {
     console.log("Server luistert op port " + config.port);
