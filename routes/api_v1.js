@@ -55,11 +55,6 @@ router.get("/films/:filmid", function(req, res) {
     });
 });
 
-router.delete("/rentals/:userid/:inventoryid", req, res){
-
-    
-}
-
 router.post("/login", function(req, res){
     var username = req.body.username;
     var password = req.body.password;
