@@ -2,6 +2,7 @@ var bodyParser = require("body-parser");
 var config = require("./config/config.json");
 var express = require("express");
 var routes = require('./routes/api_v1.js');
+var expressJWT = require("express-jwt");
 
 var app = express();
 
@@ -9,6 +10,15 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
+
+app.use(expressJWT({
+    secret: config.secretkey
+}).unless({
+    path: [
+        { url: '/api/v1/login', methods: ['POST'] },
+        { url: '/api/v1/films/:film_id', methodes: ['GET'] }
+    ]
+}));
 
 //Gebruik de routers
 app.use('/api/v1', routes);
