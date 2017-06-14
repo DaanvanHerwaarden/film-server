@@ -19,6 +19,28 @@ router.get("/films", function (req, res) {
 	});
 });
 
+router.post('/register', function (request, response) {
+
+    var customer = request.body;
+
+    var query = {
+        sql: 'INSERT INTO `customer` (first_name, last_name, email) VALUES (?, ?, ?)',
+        values: [ customer.first_name, customer.last_name, customer.email],
+        timeout: 2000 //2secs
+    };
+
+    response.contentType('application/json');
+    database.query(query, function(error, rows, fields) {
+        if (error) {
+            response.status(400);
+            response.json(error);
+        } else {
+            response.status(200);
+            response.json(rows);
+        };
+    });
+})
+
 router.get("/films/:filmid", function(req, res) {
 	res.contentType("application/json");
 
@@ -32,6 +54,10 @@ router.get("/films/:filmid", function(req, res) {
         }
     });
 });
+
+router.delete("/rentals/:userid/:inventoryid", req, res){
+    
+}
 
 router.post("/login", function(req, res){
     var username = req.body.username;
