@@ -56,6 +56,7 @@ router.get("/films/:filmid", function(req, res) {
 });
 
 router.delete("/rentals/:userid/:inventoryid", req, res){
+
     
 }
 
