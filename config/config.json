@@ -1,0 +1,8 @@
+{
+    "port": "3000",
+    "address": "146.185.130.82",
+    "user": "1031",
+	"password": "root",
+    "database": "1031",
+    "secretkey": "koos stekkerdoos"
+}
