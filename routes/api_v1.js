@@ -98,4 +98,19 @@ router.put("/rentals/:userid/:inventoryid", function(req, res) {
    })
 });
 
+router.delete("/rentals/:userid/:inventoryid", function(req, res) {
+    res.contentType("application/json");
+
+    var customerId = req.params.userid;
+    var inventoryId = req.params.inventoryid;
+
+    database.query("DELETE FROM `rental` WHERE customer_id = ? AND inventory_id = ?", [ customerId, inventoryId ], function(error, rows, fields) {
+        if (error) {
+            res.status(400).json(error);
+        } else {
+            res.status(200).json(rows);
+        }
+    })
+});
+
 module.exports = router;
