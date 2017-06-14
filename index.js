@@ -1,8 +1,14 @@
+var bodyParser = require("body-parser");
 var config = require("./config/config.json");
 var express = require("express");
 var routes = require('./routes/api_v1.js');
 
 var app = express();
+
+//Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 
 //Gebruik de routers
 app.use('/api/v1', routes);
