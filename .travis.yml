@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "node"
+  - "7"
+  - "6"
+  - "5"
+
+before_script:
+  - npm install chai chai-http mocha
+  - npm install
+
+deploy:
+  branch: dev
+
+script:
+ - npm test
