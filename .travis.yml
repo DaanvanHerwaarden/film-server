@@ -5,12 +5,7 @@ node_js:
   - "6"
   - "5"
 
-before_script:
-  - npm install chai chai-http mocha
-  - npm install
-
 deploy:
-  branch: dev
-
-script:
- - npm test
+  skip_cleanup: true
+  on:
+    branch: feature-daan
