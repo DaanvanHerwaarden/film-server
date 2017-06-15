@@ -11,6 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 
+app.use("*", function(req, res, next) {
+	console.log("Request opgevangen");
+	next();
+});
+
 //Gebruik de routers
 app.use('/api/v1', routes);
 
