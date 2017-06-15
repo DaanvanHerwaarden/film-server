@@ -96,7 +96,7 @@ router.post("/rentals/:userid/:inventoryid", function(req, res) {
 	var inventoryId = req.params.inventoryid;
 	var staffId = 1;
 	
-	database.query("INSERT INTO `rental`(rental_date, inventory_id, customer_id, staff_id) VALUES(NOW(), ?, ?, ?);", [ inventoryId, customerId, staffId ], function(error, rows, fields) {
+	database.query("INSERT INTO `rental`(rental_date, inventory_id, customer_id, staff_id) VALUES(NOW(), ?, ?, ?)", [ inventoryId, customerId, staffId ], function(error, rows, fields) {
         if (error) {
             res.status(400).json(error);
         } else {
@@ -117,7 +117,7 @@ router.put("/rentals/:userid/:inventoryid", function(req, res) {
        } else {
            res.status(200).json(rows);
        }
-   })
+   });
 });
 
 router.delete("/rentals/:userid/:inventoryid", function(req, res) {
@@ -126,13 +126,13 @@ router.delete("/rentals/:userid/:inventoryid", function(req, res) {
     var customerId = req.params.userid;
     var inventoryId = req.params.inventoryid;
 
-    database.query("DELETE FROM `rental` WHERE customer_id = ? AND inventory_id = ?", [ customerId, inventoryId ], function(error, rows, fields) {
+    database.query("DELETE FROM `rental` WHERE (customer_id = ? AND inventory_id = ?)", [ customerId, inventoryId ], function(error, rows, fields) {
         if (error) {
             res.status(400).json(error);
         } else {
             res.status(200).json(rows);
         }
-    })
+    });
 });
 
 module.exports = router;
