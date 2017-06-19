@@ -10,9 +10,10 @@
   "author": "Daan en Mats",
   "license": "ISC",
   "dependencies": {
-    "express-jwt": "^5.3.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "express-jwt": "^5.3.0",
+    "jwt-simple": "^0.5.1",
     "mysql": "^2.13.0"
   }
 }
