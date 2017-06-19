@@ -61,9 +61,9 @@ router.post("/login", function(req, res){
 	
 	res.contentType("application/json");
 console.log("test1");
-	database.query("SELECT COUNT(*) FROM `customer` WHERE (first_name = ? AND last_name = ?);", [ username, password ], function(error, rows, fields) {
+	database.query("SELECT COUNT(*) AS COUNT FROM `customer` WHERE (first_name = ? AND last_name = ?);", [ username, password ], function(error, rows, fields) {
 	    console.log("test2");
-        if (rows.length > 0) {
+        if (rows[0].COUNT >= 1) {
             var token = auth.encodeToken(username);
             res.status(200);
             res.json({
