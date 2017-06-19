@@ -61,18 +61,20 @@ router.post("/login", function(req, res){
 	
 	res.contentType("application/json");
 
-    if(username == "username" && password == "test") {
-        var token = auth.encodeToken(username);
-        res.status(200);
-        res.json({
-			token: token
-		});
-    } else {
-        res.status(401);
-        res.json({
-            error: "ongeldige usernaam of password."
-        });
-    }
+	database.query("SELECT COUNT(*) FROM `customer` WHERE (first_name = ? AND last_name = ?);", [ username, password ], function(error, rows, fields) {
+        if (rows.length > 0) {
+            var token = auth.encodeToken(username);
+            res.status(200);
+            res.json({
+                token: token
+            });
+        } else {
+            res.status(401);
+            res.json({
+                error: "ongeldige usernaam of password."
+            });
+        }
+    });
 });
 
 router.get("/rentals/:userid", function(req, res) {
