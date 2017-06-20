@@ -54,14 +54,14 @@ router.post('/register', function (request, response) {
             response.json(rows);
         };
     });
-})
+});
 
 router.get("/films/:filmid", function(req, res) {
 	res.contentType("application/json");
 
     var filmId = req.params.filmid;
 
-    database.query("SELECT * FROM `view_rental` WHERE film_id = ?", [ filmId ], function(error, rows, fields) {
+    database.query("SELECT * FROM `view_rental` WHERE film_id = ?", [ filmid ], function(error, rows, fields) {
         if (error) {
             res.status(400).json(error);
         } else {
