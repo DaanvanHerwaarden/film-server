@@ -22,7 +22,7 @@ router.get("/films", function (req, res) {
 router.get("/films/rentals/:filmid", function (req, res) {
 	res.contentType("application/json");
 	
-	var filmId = req.params.filmid;
+	var filmId = req.params.filmid; //film id
 	
 	database.query("SELECT * FROM `rental` WHERE film_id = ?", [ filmid ], function(error, rows, fields) {
 		if (error) {
