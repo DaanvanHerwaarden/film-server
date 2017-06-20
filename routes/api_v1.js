@@ -24,7 +24,7 @@ router.get("/films/rentals/:filmid", function (req, res) {
 	
 	var filmId = req.params.filmid; //film id
 	
-	database.query("SELECT * FROM `rental` WHERE film_id = ?", [ filmid ], function(error, rows, fields) {
+	database.query("SELECT * FROM `rental` WHERE film_id = ?", [ filmId ], function(error, rows, fields) {
 		if (error) {
 			res.status(400).json(error);
 			console.log(error);
