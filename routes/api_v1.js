@@ -19,6 +19,21 @@ router.get("/films", function (req, res) {
 	});
 });
 
+router.get("/films/rentals/:filmid", function (req, res) {
+	res.contentType("application/json");
+	
+	var filmId = req.params.filmid;
+	
+	database.query("SELECT * FROM `rental` WHERE film_id = ?", [ filmid ], function(error, rows, fields) {
+		if (error) {
+			res.status(400).json(error);
+			console.log(error);
+		} else {
+			res.status(200).json(rows);
+		}
+	});
+});
+
 router.post('/register', function (request, response) {
 
     var customer = request.body;
@@ -61,8 +76,8 @@ router.post("/login", function(req, res){
 	
 	res.contentType("application/json");
 
-	database.query("SELECT COUNT(*) FROM `customer` WHERE (first_name = ? AND last_name = ?);", [ username, password ], function(error, rows, fields) {
-        if (rows.length > 0) {
+	database.query("SELECT COUNT(*) AS COUNT FROM `customer` WHERE (first_name = ? AND last_name = ?);", [ username, password ], function(error, rows, fields) {
+	    if (rows[0].COUNT  > 0) {
             var token = auth.encodeToken(username);
             res.status(200);
             res.json({
