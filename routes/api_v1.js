@@ -22,9 +22,9 @@ router.get("/films", function (req, res) {
 router.get("/films/rentals/:filmid", function (req, res) {
 	res.contentType("application/json");
 	
-	var filmId = req.params.filmid;
+	var filmId = req.params.filmid; //film id
 	
-	database.query("SELECT * FROM `rental` WHERE film_id = ?", [ filmid ], function(error, rows, fields) {
+	database.query("SELECT * FROM `rental` WHERE film_id = ?", [ filmId ], function(error, rows, fields) {
 		if (error) {
 			res.status(400).json(error);
 			console.log(error);
@@ -75,9 +75,10 @@ router.post("/login", function(req, res){
     var password = req.body.password;
 	
 	res.contentType("application/json");
-
+console.log("test1");
 	database.query("SELECT COUNT(*) AS COUNT FROM `customer` WHERE (first_name = ? AND last_name = ?);", [ username, password ], function(error, rows, fields) {
-	    if (rows[0].COUNT  > 0) {
+	    console.log("test2");
+        if (rows[0].COUNT >= 1) {
             var token = auth.encodeToken(username);
             res.status(200);
             res.json({
