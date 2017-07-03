@@ -8,4 +8,4 @@ node_js:
 deploy:
   skip_cleanup: true
   on:
-    branch: feature-daan
+    branch: dev

@@ -35,13 +35,18 @@ router.get("/films/rentals/:filmid", function (req, res) {
 });
 
 router.post('/register', function (request, response) {
-
     var customer = request.body;
-
+	
+	database.query("SELECT COUNT(*) AS COUNT FROM `customer` WHERE (first_name = ? AND last_name = ? AND email = ?)", [ customer.first_name, customer.last_name, customer.email ], function(error, rows, fields) {
+        if (rows[0].COUNT >= 1) {
+            return; //Registreer deze gebruiker niet als deze al bestaat
+        }
+    });
+	
     var query = {
         sql: 'INSERT INTO `customer` (first_name, last_name, email) VALUES (?, ?, ?)',
         values: [ customer.first_name, customer.last_name, customer.email],
-        timeout: 2000 //2secs
+        timeout: 2000 //2 seconden
     };
 
     response.contentType('application/json');
@@ -54,7 +59,7 @@ router.post('/register', function (request, response) {
             response.json(rows);
         };
     });
-})
+});
 
 router.get("/films/:filmid", function(req, res) {
 	res.contentType("application/json");
@@ -71,15 +76,15 @@ router.get("/films/:filmid", function(req, res) {
 });
 
 router.post("/login", function(req, res){
-    var username = req.body.username;
-    var password = req.body.password;
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+	var email = req.body.email;
 	
 	res.contentType("application/json");
-console.log("test1");
-	database.query("SELECT COUNT(*) AS COUNT FROM `customer` WHERE (first_name = ? AND last_name = ?);", [ username, password ], function(error, rows, fields) {
-	    console.log("test2");
+	
+	database.query("SELECT COUNT(*) AS COUNT FROM `customer` WHERE (first_name = ? AND last_name = ? AND email = ?)", [ firstName, lastName, email ], function(error, rows, fields) {
         if (rows[0].COUNT >= 1) {
-            var token = auth.encodeToken(username);
+            var token = auth.encodeToken(firstName);
             res.status(200);
             res.json({
                 token: token
@@ -87,7 +92,7 @@ console.log("test1");
         } else {
             res.status(401);
             res.json({
-                error: "ongeldige usernaam of password."
+                error: "Invalid credentials"
             });
         }
     });
